@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1>Тип  услуги</h1>
+    {% if user.is_superuser %} 
+    {% else %}
+    <a class="btn btn-primary mt-3" href = "{% url 'type_create_url' %}">Добавить</a>
+    {% endif %}
+    <div class="row">
+      <div class="card card-body">
+        <form method="get">
+          {{myFilter.form}}
+          <button class="btn btn-primary" type"submit">
+            Поиск
+          </button>
+        </form>
+      </div>
+    <div class="col-md-12">
+        <table width="600" align="center">
+            <thead>
+              <tr>
+                <th scope="col">Тип услуги</th>
+                <th scope="col"></th>
+              </tr>
+            </thead> 
+            <tbody>
+                {% for type_of_service in type_of_services %}
+                <tr>
+                    <td>{{ type_of_service.name }}</td>
+                    </td>
+                {% if user.is_superuser %} 
+                {% else %}
+                    <th scope="col"><a class="btn btn-info" href="{{ type_of_service.get_update_url }}">Открыть</a></th>
+                {% endif %}
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        <div class='col-md-12' align="right">
+          <a href="{% url 'Type_of_service_export-excel' %}" class="btn btn-primary">Экспорт</a>
+        </div>
+    </div>
+    </div>
+    <hr>
+    <br>
+
+    <div class="pagination">
+<span class="step-links">
+{% if type_of_services.has_previous %}
+<a href="?page={{ type_of_services.previous_page_number }}">Назад</a>
+{% endif %}
+
+<span class="current">
+Стр. {{ type_of_services.number }} из {{ type_of_services.paginator.num_pages }}.
+</span>
+
+{% if type_of_services.has_next %}
+<a href="?page={{ type_of_services.next_page_number }}">Вперед</a>
+{% endif %}
+</span>
+</div>
+
+
+
+
+{% endblock content %}

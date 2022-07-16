@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{{data.get_delete_url}}" method="POST">
+
+{% csrf_token %}
+
+<h3>Вы действительно хотите удалить запись <b>"{{data.name}}"</b>?</h3>
+                                               <p>{{ one_time_contract.fk_clients }}</p>
+                                               <p>{{ one_time_contract.date_from }}</p>
+                                               <p>{{ one_time_contract.date_to }}</p>
+                                               <p>{{ one_time_contract.fk_one_time_services }}</p>
+                                               <p>{{ one_time_contract.fk_employee }}</p>
+                                               <p>{{ one_time_contract.fk_Scope_of_service }}</p>
+                                               <p>{{ one_time_contract.quantity }}</p>
+                                               <p>{{ one_time_contract.cost }}</p>
+                                               <p>{{ one_time_contract.sum }}</p>
+                                               <p>{{ one_time_contract.state }}</p>
+    <a href = "{{ one_time_contract.get_absolute_url }}" type="button" class="btn btn-success">Отмена</a>
+    <button type="submit" class="btn btn-danger">Удалить</button>
+</form>
+
+{% endblock content %}

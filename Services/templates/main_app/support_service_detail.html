@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+        <h2>{{ support_service.name }}</h2>
+            <p>{{ support_service.short_name }}</p>
+            <p>{{ support_service.cost }}</p>
+            <form action="{{ data.get_update_url }}" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{field.label}}
+                    {{field}}
+                {% endfor %}
+
+                {% if form %}
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+                <a class="btn btn-danger" type="submit" href="{{ data.get_delete_url }}">Удалить</a>
+                {% endif %}
+               
+           </form>
+        </div>
+    </div>
+
+ 
+</div>
+{% endblock content %}

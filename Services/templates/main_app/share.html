@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Обратная связь{% endblock %}
+{% block content %}
+
+   
+<h1></h1>
+    <div class="col-md-12" width="600" align="center"> 
+    <form action="{% url 'share_url' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        </div>
+        <button class="btn btn-primary mt-6" type="submit">Отправить</button>
+    </form>
+    
+{% endblock %}

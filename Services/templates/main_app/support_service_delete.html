@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{{data.get_delete_url}}" method="POST">
+
+{% csrf_token %}
+
+<h3>Вы действительно хотите удалить запись <b>"{{data.name}}"</b>?</h3>
+    <a href = "{{ support_service.get_absolute_url }}" type="button" class="btn btn-success">Отмена</a>
+    <button type="submit" class="btn btn-danger">Удалить</button>
+</form>
+
+{% endblock content %}

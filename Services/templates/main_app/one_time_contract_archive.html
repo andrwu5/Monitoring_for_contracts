@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+
+{% block content %}    
+
+  </div>
+  <h1>Архив разовых договоров</h1> 
+  
+    <div class="row">
+      <div class="card card-body">
+          
+        <form method="get">
+          {{myFilter.form}}
+
+          <button class="btn btn-primary" type"submit">
+          Поиск</button>
+        </form>
+      </div>
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Номер договора</th>
+                <th scope="col">Клиент</th>
+                <th scope="col">Дата с</th>
+                <th scope="col">Дата по</th>
+                <th scope="col">Разовая услуга</th>
+                <th scope="col">Рабочая группа</th>
+                <th scope="col">Используемые средства</th>
+                <th scope="col">Количество</th> 
+                <th scope="col">Цена</th>
+                <th scope="col">Сумма</th>                
+                <th scope="col"></th>
+              </tr>
+            </thead> 
+            <tbody>
+                {% for one_time_contract in one_time_contracts %}
+                <tr>
+                    <td>{{ one_time_contract.name }}</td>
+                    <td>{{ one_time_contract.fk_clients }}</td>
+                    <td>{{ one_time_contract.date_from }}</td>
+                    <td>{{ one_time_contract.date_to }}</td> 
+                    <td>{{ one_time_contract.fk_one_time_services }}</td>
+                    <td>{{ one_time_contract.fk_employee }}</td>
+                    <td>{{ one_time_contract.fk_Scope_of_service }}
+                    <td>{{ one_time_contract.quantity }}</td>
+                    <td>{{ one_time_contract.cost }}</td>
+                    <td>{{ one_time_contract.sum }}</td>
+                {% if user.is_superuser %} 
+                    <th scope="col"><a class="btn btn-info" href="{{ one_time_contract.get_update_url }}">Открыть</a></th>
+                {% endif %}  
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        <div class='col-md-12' align="right">
+          <a href="{% url 'One_time_contract_archive_export-excel' %}" class="btn btn-primary">Экспорт</a>
+          <a href="{% url 'One_time_contract_archive_report-pdf' %}" class="btn btn-primary">Отчет</a>
+        </div>
+    </div>
+    </div>
+    <hr> 
+    <br>
+
+    <div class="pagination">
+<span class="step-links">
+{% if one_time_contracts.has_previous %}
+<a href="?page={{ one_time_contracts.previous_page_number }}">Назад</a>
+{% endif %}
+
+<span class="current">
+Стр. {{ one_time_contracts.number }} из {{ one_time_contracts.paginator.num_pages }}.
+</span>
+
+{% if one_time_contracts.has_next %}
+<a href="?page={{ one_time_contracts.next_page_number }}">Вперед</a>
+{% endif %}
+</span>
+</div>  
+
+
+{% endblock content %}

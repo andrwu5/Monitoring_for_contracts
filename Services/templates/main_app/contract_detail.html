@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8">
+        <h2>{{ contract.name }}</h2>
+            <p>{{ contract.fk_clients }}</p>
+            <p>{{ contract.date }}</p>
+            <p>{{ contract.fk_support_services }}</p>
+            <p>{{ contract.fk_employee }}</p>
+            <p>{{ contract.fk_Scope_of_service }}</p>
+            <p>{{ contract.quantity }}</p>
+            <p>{{ contract.cost }}</p>
+            <p>{{ contract.sum }}</p>
+            <form action="{{ data.get_update_url }}" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{field.label}}
+                    {{field}}
+                {% endfor %}
+                {% if form %}
+    <br><br>            
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+                <a class="btn btn-danger" type="submit" href="{{ data.get_delete_url }}">Удалить</a>
+                {% endif %}
+               
+           </form>
+        </div>
+    </div>
+
+ 
+</div>
+{% endblock content %}
